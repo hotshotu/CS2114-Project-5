@@ -18,7 +18,7 @@ public class SongNode {
      * @param entry
      *            The song to be stored
      */
-    private SongNode(Song entry) {
+    public SongNode(Song entry) {
         data = entry;
         next = null;
     }
@@ -32,7 +32,7 @@ public class SongNode {
     public Song getData() {
         return data;
     }
-
+    
 
     /**
      * Getter method for the next SongNode

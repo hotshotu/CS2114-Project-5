@@ -49,6 +49,11 @@ public class LinkedSong {
     }
 
 
+    public int size() {
+        return size;
+    }
+
+
     public void set(SongNode entry, int index) {
         if (index > size) {
             throw new IndexOutOfBoundsException("LinkedSong set method IOOB");

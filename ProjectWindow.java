@@ -1,5 +1,6 @@
 package mpvisual;
 
+import java.io.FileNotFoundException;
 import CS2114.*;
 
 public class ProjectWindow {
@@ -11,7 +12,7 @@ public class ProjectWindow {
     private Window window;
 
 
-    public ProjectWindow(String[] args) {
+    public ProjectWindow(String[] args) throws FileNotFoundException {
         backend = new ProjectBackend(args);
         glyphNum = 0;
         glyphs = new Glyph[9];
@@ -61,13 +62,11 @@ public class ProjectWindow {
 
         window.addButton(quit, WindowSide.SOUTH);
         quit.onClick(this, "pressedQuit");
-
-        display();
     }
 
 
     public void display() {
-        //TODO
+        
     }
 
 
