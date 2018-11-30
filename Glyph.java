@@ -1,4 +1,4 @@
-package mpvisual;
+package prj5;
 
 import java.awt.Color;
 import CS2114.*;
@@ -26,8 +26,14 @@ public class Glyph {
 
     // the heights of the bars, the x of the r bars, and glyphBlackBar should be
     // hard-coded
+    /**
+     * Constructor for the Glyph class
+     * 
+     * @param song
+     *            the backend variable
+     */
     public Glyph(Song song) {
-        titleShape = new TextShape(0, 0, song.getName());
+        titleShape = new TextShape(0, 0, song.getTitle());
         artistShape = new TextShape(0, 0, song.getArtist());
         l1Shape = new Shape(0, 0, 0, 0, Color.PINK);
         r1Shape = new Shape(0, 0, 0, 0, Color.PINK);
@@ -41,7 +47,19 @@ public class Glyph {
     }
 
 
-    public void update(Representation rep, Song song, int numResponse) {
+// Change backend's numResponses to the individual song's numReps
+    /**
+     * Updates the glyphs measurements, taking into account which button was
+     * pressed
+     * 
+     * @param rep
+     *            The representation requested
+     * @param song
+     *            The songs that will be updated
+     * @param numResponse
+     *            The amount of recorded responses
+     */
+    public void update(RepresentationEnum rep, Song song, int numResponse) {
         int rep1HWidth;
         int rep1LWidth;
         int rep2HWidth;
@@ -51,36 +69,63 @@ public class Glyph {
         int rep4HWidth;
         int rep4LWidth;
         switch (rep) {
+            case HOBBY:
+                rep1HWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[0];
+                rep1LWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[1];
+                rep2HWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[2];
+                rep2LWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[3];
+                rep3HWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[4];
+                rep3LWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[5];
+                rep4HWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[6];
+                rep4LWidth = song.getRepresentation(
+                    RepresentationEnum.HOBBY)[7];
+                break;
+            case MAJOR:
+                rep1HWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[0];
+                rep1LWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[1];
+                rep2HWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[2];
+                rep2LWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[3];
+                rep3HWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[4];
+                rep3LWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[5];
+                rep4HWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[6];
+                rep4LWidth = song.getRepresentation(
+                    RepresentationEnum.MAJOR)[7];
+                break;
+            case REGION:
+                rep1HWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[0];
+                rep1LWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[1];
+                rep2HWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[2];
+                rep2LWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[3];
+                rep3HWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[4];
+                rep3LWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[5];
+                rep4HWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[6];
+                rep4LWidth = song.getRepresentation(
+                    RepresentationEnum.REGION)[7];
+                break;
             default:
                 throw new IllegalArgumentException(
                     "Invalid Representation pass to Glyph");
-            case HOBBY:
-                rep1HWidth = song.getRepresentation(Representation.HOBBY)[0];
-                rep1LWidth = song.getRepresentation(Representation.HOBBY)[1];
-                rep2HWidth = song.getRepresentation(Representation.HOBBY)[2];
-                rep2LWidth = song.getRepresentation(Representation.HOBBY)[3];
-                rep3HWidth = song.getRepresentation(Representation.HOBBY)[4];
-                rep3LWidth = song.getRepresentation(Representation.HOBBY)[5];
-                rep4HWidth = song.getRepresentation(Representation.HOBBY)[6];
-                rep4LWidth = song.getRepresentation(Representation.HOBBY)[7];
-            case MAJOR:
-                rep1HWidth = song.getRepresentation(Representation.MAJOR)[0];
-                rep1LWidth = song.getRepresentation(Representation.MAJOR)[1];
-                rep2HWidth = song.getRepresentation(Representation.MAJOR)[2];
-                rep2LWidth = song.getRepresentation(Representation.MAJOR)[3];
-                rep3HWidth = song.getRepresentation(Representation.MAJOR)[4];
-                rep3LWidth = song.getRepresentation(Representation.MAJOR)[5];
-                rep4HWidth = song.getRepresentation(Representation.MAJOR)[6];
-                rep4LWidth = song.getRepresentation(Representation.MAJOR)[7];
-            case REGION:
-                rep1HWidth = song.getRepresentation(Representation.REGION)[0];
-                rep1LWidth = song.getRepresentation(Representation.REGION)[1];
-                rep2HWidth = song.getRepresentation(Representation.REGION)[2];
-                rep2LWidth = song.getRepresentation(Representation.REGION)[3];
-                rep3HWidth = song.getRepresentation(Representation.REGION)[4];
-                rep3LWidth = song.getRepresentation(Representation.REGION)[5];
-                rep4HWidth = song.getRepresentation(Representation.REGION)[6];
-                rep4LWidth = song.getRepresentation(Representation.REGION)[7];
         }
         l1Shape = new Shape(rep1HWidth / numResponse, 15);
         r1Shape = new Shape(0, 0, rep1LWidth / numResponse * 65, 15);
@@ -95,6 +140,16 @@ public class Glyph {
 
 
 // Need to account for variable bar lengths
+    /**
+     * Puts the glyphs onto the window so the client can see it
+     * 
+     * @param win
+     *            The window that will get glyphs displayed on it
+     * @param x
+     *            The x position of the glyph
+     * @param y
+     *            The y position of the glyph
+     */
     public void displayGlyph(Window win, int x, int y) {
 
         titleShape.setX((x - titleShape.getWidth()) / 2);
@@ -131,7 +186,7 @@ public class Glyph {
         r4Shape.setX(x + l4Shape.getWidth() + glyphBlackBar.getWidth());
         r4Shape.setY(y + titleShape.getHeight() + artistShape.getHeight()
             + r1Shape.getHeight() + r2Shape.getHeight() + r3Shape.getHeight());
-        
+
         glyphBlackBar.setX(x + l1Shape.getWidth());
     }
 }

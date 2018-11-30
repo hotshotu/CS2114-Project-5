@@ -1,4 +1,4 @@
-package mpvisual;
+package prj5;
 
 /**
  * SongNode is our Node implementation that holds a song
@@ -32,7 +32,7 @@ public class SongNode {
     public Song getData() {
         return data;
     }
-    
+
 
     /**
      * Getter method for the next SongNode
@@ -52,5 +52,16 @@ public class SongNode {
      */
     public void setNext(SongNode entry) {
         next = entry;
+    }
+
+
+    /**
+     * Setter method to change data
+     * 
+     * @param song
+     *            The new song
+     */
+    public void setData(Song song) {
+        data = song;
     }
 }

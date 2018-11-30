@@ -1,4 +1,4 @@
-package mpvisual;
+package prj5;
 
 /**
  * Song is the backend data that is stored for a single song
@@ -8,7 +8,7 @@ package mpvisual;
  */
 public class Song {
 
-    private String name;
+    private String title;
     private String artist;
     private int year;
     private String genre;
@@ -16,137 +16,276 @@ public class Song {
     private int[] hobby;
     private int[] major;
     private int[] region;
+    private int[] numReps;
 
 
     /**
      * Constructor for Song
      * 
-     * @param Name
-     *            The name of the song
-     * @param Artist
+     * @param title
+     *            The title of the song
+     * @param artist
      *            The artist of the song
-     * @param Year
+     * @param year
      *            The release year of the song
-     * @param Genre
+     * @param genre
      *            The genre of the song
      */
-    public Song(String Name, String Artist, int Year, String Genre) {
-        name = Name;
-        artist = Artist;
-        year = Year;
-        genre = Genre;
+    public Song(String title, String artist, int year, String genre) {
+        this.title = title;
+        this.artist = artist;
+        this.year = year;
+        this.genre = genre;
 
         hobby = new int[8];
         major = new int[8];
         region = new int[8];
+        numReps = new int[3];
 
         for (int i = 0; i < 8; i++) {
             hobby[i] = 0;
             major[i] = 0;
             region[i] = 0;
+            if (i < 3) {
+                numReps[i] = 0;
+            }
         }
     }
 
 
     /**
      * Increases the count for the respective Heard or Liked given a student's
-     * hobby, major, and region. It adds all three at once so it only needs to
+     * hobby. It adds all three at once so it only needs to
      * be called once per song per student. It is called a second time if they
      * heard and liked, 0 times if neither.
      * 
      * @param h
      *            The student's hobby
+     * @param pick
+     *            Whether the student heard or liked the song
+     */
+    public void addYesHobby(HobbyEnum h, HorLEnum pick) {
+        switch (h) {
+            case READ:
+                switch (pick) {
+                    case HEARD:
+                        hobby[0]++;
+                        numReps[0]++;
+                        break;
+                    case LIKED:
+                        hobby[1]++;
+                        numReps[0]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Hobby pass to Song");
+                }
+                break;
+            case ART:
+                switch (pick) {
+                    case HEARD:
+                        hobby[2]++;
+                        numReps[0]++;
+                        break;
+                    case LIKED:
+                        hobby[3]++;
+                        numReps[0]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Hobby pass to Song");
+                }
+                break;
+            case SPORTS:
+                switch (pick) {
+                    case HEARD:
+                        hobby[4]++;
+                        numReps[0]++;
+                        break;
+                    case LIKED:
+                        hobby[5]++;
+                        numReps[0]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Hobby pass to Song");
+                }
+                break;
+            case MUSIC:
+                switch (pick) {
+                    case HEARD:
+                        hobby[6]++;
+                        numReps[0]++;
+                        break;
+                    case LIKED:
+                        hobby[7]++;
+                        numReps[0]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Hobby pass to Song");
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid HorL pass to Song");
+        }
+    }
+
+
+    /**
+     * Increases the count for the respective Heard or Liked given a student's
+     * major. It adds all three at once so it only needs to
+     * be called once per song per student. It is called a second time if they
+     * heard and liked, 0 times if neither.
+     * 
      * @param m
-     *            The student's major
+     *            the respective student's major
+     * @param pick
+     *            whether the student heard or liked the song
+     */
+    public void addYesMajor(MajorEnum m, HorLEnum pick) {
+        switch (m) {
+            case COMPSCI:
+                switch (pick) {
+                    case HEARD:
+                        major[0]++;
+                        numReps[1]++;
+                        break;
+                    case LIKED:
+                        major[1]++;
+                        numReps[1]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Major pass to Song");
+                }
+                break;
+            case OTHERENG:
+                switch (pick) {
+                    case HEARD:
+                        major[2]++;
+                        numReps[1]++;
+                        break;
+                    case LIKED:
+                        major[3]++;
+                        numReps[1]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Major pass to Song");
+                }
+                break;
+            case MATHCDMA:
+                switch (pick) {
+                    case HEARD:
+                        major[4]++;
+                        numReps[1]++;
+                        break;
+                    case LIKED:
+                        major[5]++;
+                        numReps[1]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Major pass to Song");
+                }
+                break;
+            case OTHER:
+                switch (pick) {
+                    case HEARD:
+                        major[6]++;
+                        numReps[1]++;
+                        break;
+                    case LIKED:
+                        major[7]++;
+                        numReps[1]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Major pass to Song");
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid HorL pass to Song");
+        }
+    }
+
+
+    /**
+     * Increases the count for the respective Heard or Liked given a student's
+     * region. It adds all three at once so it only needs to
+     * be called once per song per student. It is called a second time if they
+     * heard and liked, 0 times if neither.
+     * 
      * @param r
      *            The student's region
      * @param pick
      *            Whether the student heard or liked the song
      */
-    public void addYes(Hobby h, Major m, Region r, HorL pick) {
-        switch (pick) {
+    public void addYesRegion(RegionEnum r, HorLEnum pick) {
+        switch (r) {
+            case NEUS:
+                switch (pick) {
+                    case HEARD:
+                        region[0]++;
+                        numReps[2]++;
+                        break;
+                    case LIKED:
+                        region[1]++;
+                        numReps[2]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Region pass to Song");
+                }
+                break;
+            case SEUS:
+                switch (pick) {
+                    case HEARD:
+                        region[2]++;
+                        numReps[2]++;
+                        break;
+                    case LIKED:
+                        region[3]++;
+                        numReps[2]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Region pass to Song");
+                }
+                break;
+            case OTHERUS:
+                switch (pick) {
+                    case HEARD:
+                        region[4]++;
+                        numReps[2]++;
+                        break;
+                    case LIKED:
+                        region[5]++;
+                        numReps[2]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Region pass to Song");
+                }
+                break;
+            case OUTSIDEUS:
+                switch (pick) {
+                    case HEARD:
+                        region[6]++;
+                        numReps[2]++;
+                        break;
+                    case LIKED:
+                        region[7]++;
+                        numReps[2]++;
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                            "Invalid Region pass to Song");
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Invalid HorL pass to Song");
-            case HEARD:
-                switch (h) {
-                    default:
-                        throw new IllegalArgumentException(
-                            "Invalid Hobby pass to Song");
-                    case READ:
-                        hobby[0]++;
-                    case ART:
-                        hobby[1]++;
-                    case SPORTS:
-                        hobby[2]++;
-                    case MUSIC:
-                        hobby[3]++;
-                }
-                switch (m) {
-                    default:
-                        throw new IllegalArgumentException(
-                            "Invalid Major pass to Song");
-                    case COMPSCI:
-                        major[0]++;
-                    case OTHERENG:
-                        major[1]++;
-                    case MATHCDMA:
-                        major[2]++;
-                    case OTHER:
-                        major[3]++;
-                }
-                switch (r) {
-                    default:
-                        throw new IllegalArgumentException(
-                            "Invalid Region pass to Song");
-                    case NEUS:
-                        region[0]++;
-                    case SEUS:
-                        region[1]++;
-                    case OTHERUS:
-                        region[2]++;
-                    case OUTSIDEUS:
-                        region[3]++;
-                }
-            case LIKED:
-                switch (h) {
-                    default:
-                        throw new IllegalArgumentException(
-                            "Invalid Hobby pass to Song");
-                    case READ:
-                        hobby[4]++;
-                    case ART:
-                        hobby[5]++;
-                    case SPORTS:
-                        hobby[6]++;
-                    case MUSIC:
-                        hobby[7]++;
-                }
-                switch (m) {
-                    default:
-                        throw new IllegalArgumentException(
-                            "Invalid Major pass to Song");
-                    case COMPSCI:
-                        major[4]++;
-                    case OTHERENG:
-                        major[5]++;
-                    case MATHCDMA:
-                        major[6]++;
-                    case OTHER:
-                        major[7]++;
-                }
-                switch (r) {
-                    default:
-                        throw new IllegalArgumentException(
-                            "Invalid Region pass to Song");
-                    case NEUS:
-                        region[4]++;
-                    case SEUS:
-                        region[5]++;
-                    case OTHERUS:
-                        region[6]++;
-                    case OUTSIDEUS:
-                        region[7]++;
-                }
         }
     }
 
@@ -158,17 +297,17 @@ public class Song {
      *            The representation to be returned
      * @return Returns the corresponding array
      */
-    public int[] getRepresentation(Representation r) {
+    public int[] getRepresentation(RepresentationEnum r) {
         switch (r) {
-            default:
-                throw new IllegalArgumentException(
-                    "Invalid Representation pass to Song");
             case HOBBY:
                 return hobby;
             case MAJOR:
                 return major;
             case REGION:
                 return region;
+            default:
+                throw new IllegalArgumentException(
+                    "Invalid Representation pass to Song");
         }
     }
 
@@ -179,12 +318,12 @@ public class Song {
     // the location where we call getYear
 
     /**
-     * Getter method for name
+     * Getter method for title
      * 
-     * @return Returns name
+     * @return Returns title
      */
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
 
@@ -215,5 +354,49 @@ public class Song {
      */
     public String getGenre() {
         return genre;
+    }
+
+
+    /**
+     * Getter for the number of students in each representation
+     * 
+     * @param rep
+     *            The representation
+     * @return Returns the number of students in each representation
+     */
+    public int getReps(RepresentationEnum rep) {
+        switch (rep) {
+            case HOBBY:
+                return numReps[0];
+            case MAJOR:
+                return numReps[1];
+            case REGION:
+                return numReps[2];
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+
+    /**
+     * Increments a hobby based on the parameter
+     * 
+     * @param rep
+     *            The representation
+     */
+    public void addReps(RepresentationEnum rep) {
+        switch (rep) {
+            case HOBBY:
+                numReps[0]++;
+                break;
+            case MAJOR:
+                numReps[1]++;
+                break;
+            case REGION:
+                numReps[2]++;
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }

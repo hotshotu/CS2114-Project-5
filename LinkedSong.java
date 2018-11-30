@@ -1,5 +1,12 @@
-package mpvisual;
+package prj5;
 
+/**
+ * Class for LinkedSong
+ * 
+ * @author Kenneth Ding <dkenny>
+ * @version 11.14.2018
+ *
+ */
 public class LinkedSong {
 
     private SongNode head;
@@ -7,6 +14,9 @@ public class LinkedSong {
     private int size;
 
 
+    /**
+     * Constructor for linked song
+     */
     public LinkedSong() {
         head = null;
         tail = null;
@@ -14,19 +24,37 @@ public class LinkedSong {
     }
 
 
+    /**
+     * Getter that returns the head
+     * 
+     * @return Returns the head of the tail
+     */
     public SongNode getHead() {
         return head;
     }
 
 
+    /**
+     * Getter that gets the tail of the list
+     * 
+     * @return tail Returns the tail of the list
+     */
     public SongNode getTail() {
         return tail;
     }
 
 
+    /**
+     * Finds the entry at the requested position
+     * 
+     * @param index
+     *            The position that is needed
+     * @return temp the item at index's position
+     */
     public SongNode getIndex(int index) {
         if (index > size) {
-            throw new IndexOutOfBoundsException("LinkedSong getI method IOOB");
+            throw new IndexOutOfBoundsException(
+                "LinkedSong getIndex method IOOB");
         }
         SongNode temp = head;
         for (int i = 0; i < index; i++) {
@@ -36,6 +64,12 @@ public class LinkedSong {
     }
 
 
+    /**
+     * Adds an entry to the linked list
+     * 
+     * @param entry
+     *            The SongNode that will be added
+     */
     public void add(SongNode entry) {
         if (head == null) {
             head = entry;
@@ -49,26 +83,12 @@ public class LinkedSong {
     }
 
 
+    /**
+     * Size of LinkedSong nodes
+     * 
+     * @return size size of chain
+     */
     public int size() {
         return size;
-    }
-
-
-    public void set(SongNode entry, int index) {
-        if (index > size) {
-            throw new IndexOutOfBoundsException("LinkedSong set method IOOB");
-        }
-        else if (index == 0) {
-            entry.setNext(head.getNext());
-            head = entry;
-        }
-        else {
-            SongNode temp = head;
-            for (int i = 0; i < index - 1; i++) {
-                temp = temp.getNext();
-            }
-            entry.setNext(temp.getNext().getNext());
-            temp.setNext(entry);
-        }
     }
 }
